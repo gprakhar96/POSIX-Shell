@@ -8,7 +8,7 @@ void runCommand(vector<string> inpCommand) {
   char *arr[inpCommand.size() + 1];
   for (int i = 0; i < inpCommand.size(); i++) {
     arr[i] = inpCommand[i].data();
-  }s
+  }
   char *n = {NULL};
   arr[inpCommand.size()] = n;
   execvp(arr[0], arr);
