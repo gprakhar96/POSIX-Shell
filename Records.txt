@@ -1,0 +1,149 @@
+10000000_729276004155414_919162466332823922_n.mp4
+2019201014
+2019201014 (1).zip
+2019201014 (2).zip
+2019201014 (3).zip
+2019201014_APS_ASSIGNMENT.zip
+2019201014_assignment1 (1)
+2019201014_assignment1 (1).zip
+2019201014_assignment1.zip
+2019201014_Shanu Gandhi.pdf
+2019201014.zip
+aadhar attested.pdf
+Advanced.Programming.in.the.UNIX.Environ.pdf
+APS Assignment-1.pdf
+APS_Assignment_2 (1).pdf
+APS Assignment 3 (1).pdf
+APS Assignment 3.pdf
+APS Assignment-4.pdf
+Aps Assignments Evaluation Slots - Sheet-1.pdf
+aps project
+Aps Projects.zip
+Assignment 2 (1).pdf
+Assignment 2.pdf
+a.txt
+AVL tree animation.ppt
+bala
+beej_network.pdf
+Bekhayali - Kabir Singh (2019).mp3
+Caste-converted.pdf
+Cheatsheets (1).zip
+Cheatsheets.zip
+Chhichhore_2019_Hindi_Full_Movie-(Filmy-Zilla.co).mp4
+Client-Server_Programming_with_TCP_IP_So.pdf
+code.txt
+compressed
+ddl.sql
+exper.doc
+Fermat_s_Little_Theorom.pdf
+filegen.sh
+Gate sc attested.pdf
+hdfc passbook attested.pdf
+hyd trip
+image2.bmp
+image.jpg
+Inglourious.Basterds.2009.720p.Farda.DL.mkv
+inglourious-basterds_english-1173950
+inglourious-basterds_english-1173950.zip
+Interships.pdf
+Lecture2_MySQL (1).odp
+Lecture2_MySQL.odp
+OLA.pdf
+Online Application Process_Intern.pdf
+OS-PG-Assignment-1 (1).pdf
+OS-PG-Assignment-1.pdf
+PG1-OS-Mini Task - Evaluation.pdf
+PG-1-OS-Mini Tasks-1.pdf
+ppt.odf.odp
+pthreads-converted.pdf
+resume
+Seating - Sheet1.pdf
+servermt_2_sc(user input fn).cpp
+shellpipe.cpp
+Shell_Script.pdf
+shellWithParser.tar.gz
+shpipe_v2.txt
+socket prog
+Software Engineering Intern LinkedIn.pdf
+stl
+stringmatchingalgorithm-150615142625-lva1-app6891-converted.pptx
+threads
+tor-browser-linux64-8.5.5_en-US.tar.xz
+WhatsApp Image 2019-08-18 at 12.57.34 PM.jpeg
+WhatsApp Image 2019-09-18 at 1.40.34 AM.jpeg
+white noise sleep study.mp3
+total 1339144
+-rw-rw-r-- 1 shanu shanu  97925851 Sep 26 13:44 10000000_729276004155414_919162466332823922_n.mp4
+drwxr-xr-x 2 shanu shanu      4096 Aug 25 14:52 2019201014
+-rw-rw-r-- 1 shanu shanu      5873 Aug 25 14:35 2019201014 (1).zip
+-rw-rw-r-- 1 shanu shanu      5635 Sep 28 22:32 2019201014 (2).zip
+-rw-rw-r-- 1 shanu shanu      3142 Oct  8 23:15 2019201014 (3).zip
+-rw-rw-r-- 1 shanu shanu      5989 Aug 25 04:19 2019201014_APS_ASSIGNMENT.zip
+drwxr-xr-x 3 shanu shanu      4096 Oct 17 20:39 2019201014_assignment1 (1)
+-rw-rw-r-- 1 shanu shanu     27635 Oct 17 20:38 2019201014_assignment1 (1).zip
+-rw-rw-r-- 1 shanu shanu     27635 Sep  9 15:36 2019201014_assignment1.zip
+-rw-rw-r-- 1 shanu shanu     77003 Aug 26 21:07 2019201014_Shanu Gandhi.pdf
+-rw-rw-r-- 1 shanu shanu      5989 Aug 25 04:19 2019201014.zip
+-rw-rw-r-- 1 shanu shanu    386894 Aug 30 21:28 aadhar attested.pdf
+-rw-rw-r-- 1 shanu shanu  20599339 Sep  1 03:27 Advanced.Programming.in.the.UNIX.Environ.pdf
+-rw-rw-r-- 1 shanu shanu     61481 Aug 19 17:43 APS Assignment-1.pdf
+-rw-rw-r-- 1 shanu shanu     71963 Sep 29 01:49 APS_Assignment_2 (1).pdf
+-rw-rw-r-- 1 shanu shanu     74828 Oct  8 22:46 APS Assignment 3 (1).pdf
+-rw-rw-r-- 1 shanu shanu     74822 Oct  1 23:02 APS Assignment 3.pdf
+-rw-rw-r-- 1 shanu shanu    105820 Oct 14 17:03 APS Assignment-4.pdf
+-rw-rw-r-- 1 shanu shanu     51456 Aug 24 19:43 Aps Assignments Evaluation Slots - Sheet-1.pdf
+drwxrwxr-x 2 shanu shanu      4096 Oct  4 03:52 aps project
+-rw-rw-r-- 1 shanu shanu    105897 Aug 30 21:52 Aps Projects.zip
+-rw-rw-r-- 1 shanu shanu    131240 Oct 15 23:06 Assignment 2 (1).pdf
+-rw-rw-r-- 1 shanu shanu    131240 Sep 27 00:35 Assignment 2.pdf
+-rw-r--r-- 1 shanu shanu         5 Oct 17 21:01 a.txt
+-rw-rw-r-- 1 shanu shanu    202752 Sep 13 00:36 AVL tree animation.ppt
+-rw-rw-r-- 1 shanu shanu   5976553 Oct 14 05:33 bala
+-rw-rw-r-- 1 shanu shanu    767839 Oct  9 22:16 beej_network.pdf
+-rw-rw-r-- 1 shanu shanu  14897312 Sep  4 01:28 Bekhayali - Kabir Singh (2019).mp3
+-rw-rw-r-- 1 shanu shanu    638547 Aug 31 15:16 Caste-converted.pdf
+-rw-rw-r-- 1 shanu shanu   3337210 Sep  1 22:00 Cheatsheets (1).zip
+-rw-rw-r-- 1 shanu shanu   3337210 Aug 17 16:20 Cheatsheets.zip
+-rw-rw-r-- 1 shanu shanu 402758741 Sep 18 02:59 Chhichhore_2019_Hindi_Full_Movie-(Filmy-Zilla.co).mp4
+-rw-rw-r-- 1 shanu shanu    171316 Sep 29 19:52 Client-Server_Programming_with_TCP_IP_So.pdf
+-rw-rw-r-- 1 shanu shanu       169 Sep  6 22:51 code.txt
+drwxr-xr-x 2 shanu shanu      4096 Sep 28 00:12 compressed
+-rw-rw-r-- 1 shanu shanu      3341 Aug  7 08:56 ddl.sql
+-rw-rw-r-- 1 shanu shanu     25088 Oct  2 16:21 exper.doc
+-rw-rw-r-- 1 shanu shanu    108366 Aug 19 19:44 Fermat_s_Little_Theorom.pdf
+-rw-rw-r-- 1 shanu shanu       513 Aug 16 12:44 filegen.sh
+-rw-rw-r-- 1 shanu shanu    412276 Aug 30 21:28 Gate sc attested.pdf
+-rw-rw-r-- 1 shanu shanu     52778 Aug 30 21:28 hdfc passbook attested.pdf
+drwxr-xr-x 3 shanu shanu      4096 Aug 19 17:52 hyd trip
+-rw-rw-r-- 1 shanu shanu    855134 Aug 21 11:13 image2.bmp
+-rw-rw-r-- 1 shanu shanu    194535 Sep  2 01:19 image.jpg
+-rw-rw-r-- 1 shanu shanu 680889112 Sep 24 02:17 Inglourious.Basterds.2009.720p.Farda.DL.mkv
+drwxr-xr-x 2 shanu shanu      4096 Sep 23 23:58 inglourious-basterds_english-1173950
+-rw-rw-r-- 1 shanu shanu     51233 Sep 23 23:58 inglourious-basterds_english-1173950.zip
+-rw-rw-r-- 1 shanu shanu    274243 Aug 26 17:42 Interships.pdf
+-rw-rw-r-- 1 shanu shanu    493739 Aug  9 23:13 Lecture2_MySQL (1).odp
+-rw-rw-r-- 1 shanu shanu    493739 Aug  9 01:16 Lecture2_MySQL.odp
+-rw-rw-r-- 1 shanu shanu     61917 Oct  9 12:02 OLA.pdf
+-rw-rw-r-- 1 shanu shanu    261495 Sep 25 20:32 Online Application Process_Intern.pdf
+-rw-rw-r-- 1 shanu shanu     76952 Oct 17 17:36 OS-PG-Assignment-1 (1).pdf
+-rw-rw-r-- 1 shanu shanu     76952 Aug 31 13:08 OS-PG-Assignment-1.pdf
+-rw-rw-r-- 1 shanu shanu     47408 Aug 17 18:14 PG1-OS-Mini Task - Evaluation.pdf
+-rw-rw-r-- 1 shanu shanu     69195 Aug 15 23:19 PG-1-OS-Mini Tasks-1.pdf
+-rw-rw-r-- 1 shanu shanu     66201 Sep 15 13:42 ppt.odf.odp
+-rw-rw-r-- 1 shanu shanu    497574 Oct  1 22:48 pthreads-converted.pdf
+drwxr-xr-x 4 shanu shanu      4096 Oct  4 02:35 resume
+-rw-rw-r-- 1 shanu shanu     42137 Oct 16 23:50 Seating - Sheet1.pdf
+-rw-rw-r-- 1 shanu shanu      5539 Oct 11 23:03 servermt_2_sc(user input fn).cpp
+-rw-rw-r-- 1 shanu shanu     61279 Sep  4 02:09 shellpipe.cpp
+-rw-rw-r-- 1 shanu shanu    190222 Aug 28 20:39 Shell_Script.pdf
+-rw-rw-r-- 1 shanu shanu      9383 Sep  2 00:50 shellWithParser.tar.gz
+-rw-rw-r-- 1 shanu shanu     61277 Sep  4 02:09 shpipe_v2.txt
+drwxr-xr-x 2 shanu shanu      4096 Sep 29 23:43 socket prog
+-rw-rw-r-- 1 shanu shanu     33422 Oct 12 01:30 Software Engineering Intern LinkedIn.pdf
+drwxr-xr-x 5 shanu shanu      4096 Aug 19 17:52 stl
+-rw-rw-r-- 1 shanu shanu    100892 Sep 15 13:17 stringmatchingalgorithm-150615142625-lva1-app6891-converted.pptx
+drwxrwxr-x 2 shanu shanu      4096 Sep 30 08:35 threads
+-rw-rw-r-- 1 shanu shanu  75868184 Sep 23 01:53 tor-browser-linux64-8.5.5_en-US.tar.xz
+-rw-rw-r-- 1 shanu shanu     55532 Aug 18 12:58 WhatsApp Image 2019-08-18 at 12.57.34 PM.jpeg
+-rw-rw-r-- 1 shanu shanu     39340 Sep 18 01:41 WhatsApp Image 2019-09-18 at 1.40.34 AM.jpeg
+-rw-rw-r-- 1 shanu shanu  57655933 Sep 29 03:38 white noise sleep study.mp3
