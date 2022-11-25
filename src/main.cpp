@@ -1,7 +1,5 @@
-#include <iostream>
 #include "Configuration.hpp"
 #include <string>
-#include <unistd.h>
 #include <iostream>
 #include <sys/stat.h>
 #include <time.h>
@@ -9,20 +7,17 @@
 #include <dirent.h>
 #include <sys/ioctl.h>
 #include <termios.h>
-#include <unistd.h>
 #include <stdlib.h>
 #include <pwd.h>
 #include <grp.h>
 #include <iomanip>
 #include <cmath>
 #include <stack>
-#include <vector>
 #include <algorithm>
 #include <array>
 #include <bits/stdc++.h>
 #include <cstdio>
 #include <fstream>
-#include <iostream>
 #include <memory>
 #include <stdexcept>
 #include <string>
@@ -60,11 +55,6 @@ int getWindowSize(int *r, int *c ){
         return 0;
     }
 }
-
-#include <iostream>
-#include <vector>
-#include <cstring>
-#include <fstream>
 
 using namespace std;
 
@@ -143,8 +133,8 @@ string GetStdoutFromCommand(string cmd) {
 class App{
 
     string current_dir_path;
-    string relative_current_dir_path;
     string label;
+    Configuration *x;
     
     public:
     App(){
@@ -155,19 +145,80 @@ class App{
         enableRawMode();
 
         string config_fp = "ppshrc"; 
-        Configuration x(config_fp);
+        x = new Configuration(config_fp);
 
-        current_dir_path = x.config["HOME"]; 
-        relative_current_dir_path = "";
-        label = x.config["PS1"] + ":~"+ relative_current_dir_path + "$ "; 
+        current_dir_path = x->config["HOME"];  
         print_promt();       
     }
      
     void print_promt(){
+        string rel_path = current_dir_path;
+        int i = rel_path.find(x->config["HOME"]);
+        if(i != std::string::npos){
+            if(i == 0){
+                rel_path.replace(i, x->config["HOME"].length(), "~");
+            }
+        }
+
+        label = x->config["PS1"] + ":"+ rel_path + "$ ";
         write(STDOUT_FILENO, label.c_str(), label.length());
     }
 
-    int executeCommand(vector<string> input){
+    // Change Directory (cd) Implementation
+    void gotoDir(string dirname){
+        // Must work with both Absolute and Relative paths
+        string abs_path = "";
+        char r_path[PATH_MAX];
+        bzero(r_path,PATH_MAX);
+        if (dirname.at(0) == '~'){
+            if(dirname.size() > 1) {
+                if(dirname.at(1) == '/') {
+                    abs_path += string(getpwuid(getuid())->pw_dir);
+                    abs_path += dirname.substr(1);
+                }
+            } 
+            else {
+                abs_path += string(getpwuid(getuid())->pw_dir);
+                abs_path += dirname.substr(1);
+            }
+        }
+        else if (dirname.at(0) == '/'){
+            abs_path += dirname;
+        }
+        else{
+            abs_path += current_dir_path + "/" + dirname;
+        }
+        if(realpath(abs_path.c_str(),r_path) != NULL)
+            abs_path = string(r_path);
+        
+        
+        // UPDATE FILE TRIE HERE 
+        DIR *d = opendir(abs_path.c_str());
+        if (d == NULL){
+            string error = "Error! Directory doesn't exist";
+            // Raise Error
+            cout << "\n" << error << endl;
+            closedir(d);
+            return;
+        }
+        closedir(d);
+        // END OF UPDATE FILE TRIE
+
+        //Update current_dir_path
+        current_dir_path = abs_path;
+        // cout <<  "\t" << current_dir_path;
+    }
+
+    void executeCommand(vector<string> input){
+        if (input.at(0) == "cd"){
+            if(input.size() > 2){
+                cout << "\n" << "Wrong Format for cd" << endl;
+                return;
+            }
+            gotoDir(input.at(1));
+            return;
+        }
+
         int pid = fork();
         if (pid == -1) {
             return;
@@ -175,13 +226,16 @@ class App{
         if (pid == 0) 
         {
             // child here
+            if (input.at(0) == "ls")
+                input.push_back(current_dir_path);
+            cout << endl;
             runCommand(input);
         } 
         else
         {
             // parent here
             wait(NULL);
-            cout << "Output from Aadesh : " << GetStdoutFromCommand("gsdvfghsdhfv") << endl;
+            // cout << "Output from Aadesh : " << GetStdoutFromCommand(input[0]) << endl;
         }
     }
 
