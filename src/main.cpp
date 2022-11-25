@@ -18,6 +18,18 @@
 #include <stack>
 #include <vector>
 #include <algorithm>
+#include <array>
+#include <bits/stdc++.h>
+#include <cstdio>
+#include <fstream>
+#include <iostream>
+#include <memory>
+#include <stdexcept>
+#include <string>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <vector>
 #include <limits.h>
 
 using namespace std;
@@ -98,6 +110,36 @@ vector<string> parse(string input){
     return tokens;
 }
 
+void runCommand(vector<string> inpCommand) {
+  // Handle case where the inpCommand is empty vector
+  char *arr[inpCommand.size() + 1];
+  for (int i = 0; i < inpCommand.size(); i++) {
+    arr[i] = inpCommand[i].data();
+  }
+  char *n = {NULL};
+  arr[inpCommand.size()] = n;
+
+  execvp(arr[0], arr);
+}
+
+string GetStdoutFromCommand(string cmd) {
+
+  string data;
+  FILE *stream;
+  const int max_buffer = 256;
+  char buffer[max_buffer];
+  cmd.append(" 2>&1");
+
+  stream = popen(cmd.c_str(), "r");
+  if (stream) {
+    while (!feof(stream))
+      if (fgets(buffer, max_buffer, stream) != NULL)
+        data.append(buffer);
+    pclose(stream);
+  }
+  return data;
+}
+
 class App{
 
     string current_dir_path;
@@ -125,6 +167,24 @@ class App{
         write(STDOUT_FILENO, label.c_str(), label.length());
     }
 
+    int executeCommand(vector<string> input){
+        int pid = fork();
+        if (pid == -1) {
+            return;
+        }
+        if (pid == 0) 
+        {
+            // child here
+            runCommand(input);
+        } 
+        else
+        {
+            // parent here
+            wait(NULL);
+            cout << "Output from Aadesh : " << GetStdoutFromCommand("gsdvfghsdhfv") << endl;
+        }
+    }
+
     void run(){
         string input="";
         int i = 0;
@@ -142,7 +202,7 @@ class App{
                 else
                 {
                     vector<string> input_tokens = parse(input);
-                    // executeCommand(input);
+                    executeCommand(input_tokens);
                     cout << endl;
                     print_promt();  
                 }
