@@ -40,7 +40,7 @@ string label;
 Configuration *x;
 
 deque<string> histlist;
-int maxhistsize = 5;
+int maxhistsize;
 int hist_currelem;
 string hist_previous = "";
 
@@ -86,72 +86,86 @@ int getWindowSize(int *r, int *c)
 }
 
 // HISTORY
-void setPrev(){
+void setPrev()
+{
     int l = histlist.size();
-    if(histlist.size() >= 2){    
+    if (histlist.size() >= 2)
+    {
         // if(previous != s)
-            hist_previous =  histlist[l-2];
+        hist_previous = histlist[l - 2];
     }
-    else{
+    else
+    {
         hist_previous = "";
     }
-
 }
 
-void addToHistory(string s){
-    
+void addToHistory(string s)
+{
+
     histlist.push_back(s);
 
     setPrev();
 
-    if(hist_previous == s){
+    if (hist_previous == s)
+    {
         histlist.pop_back();
         return;
     }
 
-    if(histlist.size() > maxhistsize){
+    if (histlist.size() > maxhistsize)
+    {
         histlist.pop_front();
-        
     }
     hist_currelem = histlist.size() - 1;
 }
 
-void printHistory(){
-    if(histlist.size() == 0){
+void printHistory()
+{
+    if (histlist.size() == 0)
+    {
         cout << "No history" << endl;
         return;
     }
 
-    for(int i = 0; i < histlist.size(); i++){
-        cout << i << "  " <<  histlist[i] << endl;
-    }    
+    for (int i = 0; i < histlist.size(); i++)
+    {
+        cout << i << "  " << histlist[i] << endl;
+    }
 }
 
-string printForward(){
+string printForward()
+{
     // currelem = histlist.size() - 1;
-    if(hist_currelem != histlist.size() - 1){
+    if (hist_currelem != histlist.size() - 1)
+    {
         hist_currelem++;
-        return histlist[hist_currelem];       
+        return histlist[hist_currelem];
     }
-    else{
+    else
+    {
         return "";
     }
 }
 
-string printBackward(){
+string printBackward()
+{
     // currelem = histlist.size() - 1;
-    if(hist_currelem != 0){
+    if (hist_currelem != 0)
+    {
         return histlist[hist_currelem--];
     }
-    else{
+    else
+    {
         return histlist[hist_currelem];
     }
 }
 // HISTORY END
 
 // COMMAND AUTOCOMPLETE
-void insert(struct node *curr, string s)
+void insert(struct node *root, string s)
 {
+    struct node *curr = root;
     for (int i = 0; i < s.length(); i++)
     {
 
@@ -179,31 +193,61 @@ void insert(struct node *curr, string s)
     }
 }
 
-struct node* reach(struct node *root, string s){
+struct node *reach(struct node *root, string s)
+{
 
-        for(int i = 0; i < s.length(); i++){
-            if(root->children[s[i]-35] != NULL)
-            {
-                root = root->children[s[i]-35];
-            }
+    for (int i = 0; i < s.length(); i++)
+    {
+        if (root->children[s[i] - 35] != NULL)
+        {
+            root = root->children[s[i] - 35];
         }
-
+        else
+            return NULL;
+    }
 
     return root;
 }
 
-void autocomp(struct node *curr, string s, vector<string> &W){
+void autocomp(struct node *root, string s, vector<string> &W)
+{
+    struct node *curr = root;
+    if (curr == NULL)
+        return;
+    if (curr->end)
+    {
+        W.push_back(curr->word);
+    }
 
-    
-        if(curr->end){
-            W.push_back(curr->word);
+    for (int i = 0; i < 88; i++)
+    {
+        if (curr->children[i] != NULL)
+        {
+            autocomp(curr->children[i], s, W);
         }
-        
-        for(int i = 0; i < 88; i++){
-            if(curr->children[i] != NULL){
-                autocomp(curr->children[i],s,W);
-            }
-        }
+    }
+}
+
+void autoComplete(string s, vector<string> &words)
+{
+    struct node *p = reach(root, s);
+    autocomp(p, s, words);
+}
+
+void autoCompleteInit()
+{
+    root = new node();
+    DIR *dir = opendir("/usr/bin");
+    if (dir == NULL)
+    {
+        return;
+    }
+    struct dirent *c = readdir(dir);
+    while (c != NULL)
+    {
+        insert(root, string(c->d_name));
+        c = readdir(dir);
+    }
 }
 // COMMAND AUTOCOMPLETE END
 
@@ -306,6 +350,8 @@ void init()
     x = new Configuration(config_fp);
     current_dir_path = x->config["HOME"];
     chdir(current_dir_path.c_str());
+    maxhistsize = stoi(x->config["HISTSIZE"]);
+    autoCompleteInit();
     print_promt();
 }
 
@@ -400,7 +446,6 @@ void runCommand(vector<string> inpCommand)
     }
     char *n = {NULL};
     arr[inpCommand.size()] = n;
-
     execvp(arr[0], arr);
 }
 
@@ -420,17 +465,20 @@ void executeCommand(vector<string> input)
     }
     if (input.at(0) == "exit")
     {
-        cout << endl ; //<<"Came Here" <<endl;
-        while(1){
+        cout << endl; //<<"Came Here" <<endl;
+        while (1)
+        {
             exit(0);
         }
     }
     if (input.at(0) == "pwd")
     {
-        cout << "\n" << current_dir_path << endl;
+        cout << "\n"
+             << current_dir_path << endl;
         return;
     }
-    if (input.at(0) == "history"){
+    if (input.at(0) == "history")
+    {
         cout << endl;
         printHistory();
         return;
@@ -489,23 +537,55 @@ void run()
                         // leftArrowProcess();
                         break;
                     }
-                    if (new_input != input){
+                    if (new_input != input)
+                    {
                         for (int j = 0; j < input.size(); j++)
                             write(STDOUT_FILENO, "\x1b[D", 3);
                         write(STDOUT_FILENO, "\x1b[0J", 4);
                         input = new_input;
-                        i = input.size() - 1;
+                        i = input.size();
                         write(STDOUT_FILENO, input.c_str(), input.size());
                     }
                 }
-
             }
         }
         // TAB key -- AutoComplete
         else if ((int)c == 9)
         {
-            cout << "\nTAB key Recognized -- Implement AutoComplete" << endl;
-            print_promt();
+            vector<string> words;
+            autoComplete(input, words);
+            if (words.size() == 0)
+                continue;
+            else if (words.size() == 1)
+            {
+                for (int j = 0; j < input.size(); j++)
+                    write(STDOUT_FILENO, "\x1b[D", 3);
+                write(STDOUT_FILENO, "\x1b[0J", 4);
+                input = words.at(0);
+                i = input.size();
+                write(STDOUT_FILENO, input.c_str(), input.size());
+            }
+            else{
+                cout << endl;
+                int v_pos = 0;
+                string print = "";
+                // cout << words.size() << " " << input << " " << v_pos << endl;
+                // while(v_pos < (words.size() - 4)){
+                //     print = words.at(v_pos) + " " + words.at(v_pos+1) + " " + words.at(v_pos+2) + " " + words.at(v_pos+3)
+                //             + " " + words.at(v_pos+4);
+                //     v_pos += 5;
+                //     cout << print << endl;
+                // }
+                while(v_pos < words.size()){
+                    write(STDOUT_FILENO, (words.at(v_pos)+" ").c_str(), words.at(v_pos).size()+2);
+                    v_pos++;
+                    if (v_pos % 5 == 0)
+                        write(STDOUT_FILENO, "\n", 2);
+                }
+                cout << endl;
+                print_promt();
+                write(STDOUT_FILENO, input.c_str(), input.size());
+            }
         }
         // ENTER/RETURN key
         else if ((int)c == 10)
