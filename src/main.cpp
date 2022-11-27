@@ -26,6 +26,7 @@
 #include <unistd.h>
 #include <vector>
 #include <limits.h>
+#include <ctype.h>
 
 using namespace std;
 // Store the height and width of current terminal
@@ -56,8 +57,6 @@ int getWindowSize(int *r, int *c ){
     }
 }
 
-using namespace std;
-
 //Function to copy behaviour of Python's Split function as much as possible
 vector<string> psplit(string input, char delimiter = ' '){
     // Return a vector of strings, which are separated by delimiter in input
@@ -79,6 +78,7 @@ vector<string> psplit(string input, char delimiter = ' '){
     return tokens;
 }
 
+
 vector<string> parse(string input){
     // Return a Vector of strings, which are separated be " " in input
     string s = "";
@@ -97,20 +97,12 @@ vector<string> parse(string input){
         tokens.push_back(s);
         s="";
     }
+    
+    // tokens = pathify(tokens);
     return tokens;
 }
 
-void runCommand(vector<string> inpCommand) {
-  // Handle case where the inpCommand is empty vector
-  char *arr[inpCommand.size() + 1];
-  for (int i = 0; i < inpCommand.size(); i++) {
-    arr[i] = inpCommand[i].data();
-  }
-  char *n = {NULL};
-  arr[inpCommand.size()] = n;
 
-  execvp(arr[0], arr);
-}
 
 string GetStdoutFromCommand(string cmd) {
 
@@ -134,6 +126,7 @@ class App{
 
     string current_dir_path;
     string label;
+    bool ls_path_not_given; // Used only for Validating if path needs to be appended for ls
     Configuration *x;
     
     public:
@@ -146,7 +139,7 @@ class App{
 
         string config_fp = "ppshrc"; 
         x = new Configuration(config_fp);
-
+        ls_path_not_given = true;
         current_dir_path = x->config["HOME"];  
         print_promt();       
     }
@@ -159,11 +152,34 @@ class App{
                 rel_path.replace(i, x->config["HOME"].length(), "~");
             }
         }
-
-        label = x->config["PS1"] + ":"+ rel_path + "$ ";
+        // Added Colouring to our Prompt - Sharanya
+        label = "\e[1;33m" + x->config["PS1"] + "\e[1;37m:\e[34m"+ rel_path + "\e[1;37m$ \e[0m";
         write(STDOUT_FILENO, label.c_str(), label.length());
     }
 
+    vector<string> pathify(vector<string> tokens){
+        for(int i=1;i<tokens.size();i++){
+            if (tokens.at(i).at(0) == '-')
+                continue;
+            else{
+                if (tokens.at(i).at(0) == '~'){
+                    if (tokens.at(i).length() > 1)
+                        tokens.at(i) = x->config["HOME"] + "/" + tokens.at(i).substr(2, tokens.at(i).length());
+                    else
+                        tokens.at(i) = x->config["HOME"];
+                }
+                else if (tokens.at(i).at(0) == '.' || tokens.at(i).at(0) != '/')
+                    tokens.at(i) = current_dir_path + "/" + tokens.at(i);
+
+                char name[PATH_MAX];
+                bzero(name,PATH_MAX);
+                realpath(const_cast<char *>(tokens.at(i).c_str()), name);
+                tokens.at(i) = string(name);
+                ls_path_not_given = false;
+            }
+        }
+        return tokens;
+    }
     // Change Directory (cd) Implementation
     void gotoDir(string dirname){
         // Must work with both Absolute and Relative paths
@@ -173,12 +189,12 @@ class App{
         if (dirname.at(0) == '~'){
             if(dirname.size() > 1) {
                 if(dirname.at(1) == '/') {
-                    abs_path += string(getpwuid(getuid())->pw_dir);
+                    abs_path += x->config["HOME"];
                     abs_path += dirname.substr(1);
                 }
             } 
             else {
-                abs_path += string(getpwuid(getuid())->pw_dir);
+                abs_path += x->config["HOME"];
                 abs_path += dirname.substr(1);
             }
         }
@@ -209,6 +225,23 @@ class App{
         // cout <<  "\t" << current_dir_path;
     }
 
+    void runCommand(vector<string> inpCommand) {
+        // Handle case where the inpCommand is empty vector
+        inpCommand = pathify(inpCommand);
+        if (inpCommand.at(0) == "ls" && ls_path_not_given){
+            inpCommand.push_back(current_dir_path);
+        }
+
+        char *arr[inpCommand.size() + 1];
+        for (int i = 0; i < inpCommand.size(); i++) {
+            arr[i] = inpCommand[i].data();
+        }
+        char *n = {NULL};
+        arr[inpCommand.size()] = n;
+
+        execvp(arr[0], arr);
+    }
+
     void executeCommand(vector<string> input){
         if (input.at(0) == "cd"){
             if(input.size() > 2){
@@ -216,9 +249,17 @@ class App{
                 return;
             }
             gotoDir(input.at(1));
+            cout << endl;
             return;
         }
-
+        if (input.at(0) == "exit"){
+            cout <<endl;
+            exit(EXIT_SUCCESS);
+        }
+        if (input.at(0) == "pwd"){
+            cout << "\n" << current_dir_path << endl;
+            return;
+        }
         int pid = fork();
         if (pid == -1) {
             return;
@@ -226,10 +267,9 @@ class App{
         if (pid == 0) 
         {
             // child here
-            if (input.at(0) == "ls")
-                input.push_back(current_dir_path);
             cout << endl;
             runCommand(input);
+            ls_path_not_given = true;
         } 
         else
         {
@@ -244,9 +284,38 @@ class App{
         int i = 0;
         char c;
         while (read(STDIN_FILENO, &c, 1) == 1){
+            //Process Arrow Keys --> History Showing
             if (c == '\x1b'){
-                return;
+                if(read(STDIN_FILENO, &c, 1) && c == '['){
+                    if(read(STDIN_FILENO, &c, 1) == 1){
+                        switch(c){
+                            //Up Arrow - Move Cursor Up/Scroll Up
+                            case 'A':
+                                // upArrowProcess(); // Implement a Function for Scrolling Up in History
+                                break;
+                            //Down Arrow - Move Cursor Down/Scroll Down
+                            case 'B':
+                                // downArrowProcess(); // Implement a Function for Scrolling Down in History
+                                break;
+                            //Incase we have time, can update input taking capabilites, but left for now
+                            //Right Arrow 
+                            case 'C':
+                                // rightArrowProcess();
+                                break;
+                            //Left Arrow
+                            case 'D':
+                                // leftArrowProcess();
+                                break;
+                        }
+                    }
+                }
             }
+            // TAB key -- AutoComplete
+            else if ((int)c == 9){
+                cout << "\nTAB key Recognized -- Implement AutoComplete" << endl;
+                print_promt();
+            }
+            // ENTER/RETURN key
             else if ((int)c == 10){
                 if (input.size() == 0){
                     cout << endl;
@@ -257,12 +326,13 @@ class App{
                 {
                     vector<string> input_tokens = parse(input);
                     executeCommand(input_tokens);
-                    cout << endl;
+                    // cout << endl;
                     print_promt();  
                 }
                 
                 input.clear();
             }
+            // DELETE (BACKSPACE in INDIA) key
             else if ((int)c == 127){
                 if (i>0){
                     for(int j=0;j<input.size();j++)
@@ -288,5 +358,5 @@ class App{
 int main(){
     App po;
     po.run();
-    return 1;
+    return 0;
 }
