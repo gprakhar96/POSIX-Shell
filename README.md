@@ -1,9 +1,9 @@
 # POSIX-SHELL: piedPiper Shell(ppsh)
-## how to run
+## how to run:
 $ make\
 $ ./main
 
-### how to run recordcommand
+### how to run record command:
 
 record_start\
 command1\
