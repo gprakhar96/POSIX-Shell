@@ -26,7 +26,8 @@ Developed a working POSIX compatible shell with a subset of feature support of t
 5. Output redirection 
 6. Record command
 7. Alarm
-8. most of the remaining g 
+8. most of the remaining basic shell commands are working
+9. pipelining is showing correct output but it terminates abruptly
 ## list of files:
 1. Configuration.hpp - class definitions for Configuration.cpp
 2. Configuration.cpp - cpp program to handle environment setup
